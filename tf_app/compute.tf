@@ -4,7 +4,8 @@ data "aws_ami" "packer_image" {
 
   filter {
     name   = "owner-id"
-    values = [ "${ var.owner_id }" ]
+    #values = [ "${ var.owner_id }" ]
+    values = [ "594951516078" ]
   }
 
   filter {
