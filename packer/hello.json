@@ -1,0 +1,53 @@
+{
+    "variables": {
+      "packer_build_number": "debian-9",
+      "region": "us-east-1",
+      "version": "{{timestamp}}",
+      "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}"
+    },
+    "description": "Hello World Python",
+    "builders": [
+      {
+        "ami_name": "hello-world-{{user `packer_build_number`}}-{{user `version`}}",
+        "instance_type": "t2.micro",
+        "subnet_id": "{{ user `aws_subnet_id` }}",
+        "associate_public_ip_address": true,
+        "region": "{{user `region`}}",
+        "run_tags": {
+          "Name": "hello-world",
+          "Environment": "production",
+          "Service": "hello",
+          "Owner": "ops"
+        },
+
+        "source_ami_filter": {
+          "filters": {
+            
+            "name": "debian-stretch-hvm-x86_64-gp2-*"
+          },
+          "owners": ["379101102735"],
+          "most_recent": true
+        },
+        
+        "ssh_timeout": "10m",
+        "ssh_username": "admin",
+        "tags": {
+          "Name": "hello-world-image"
+        },
+        "type": "amazon-ebs"
+
+      }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "inline": [ "sudo apt update",
+          "sudo apt install ansible -y"
+        ]
+      },
+      {
+        "type": "ansible",
+        "playbook_file": "./ansible/playbook.yml"
+        }
+    ]
+  }

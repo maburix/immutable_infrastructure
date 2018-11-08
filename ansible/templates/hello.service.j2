@@ -1,0 +1,11 @@
+[Unit]
+Description=Hello World %i
+After=network.target
+
+[Service]
+PIDFile=/var/run/hello_world.pid
+#Type=forking
+ExecStart=/opt/hello/app.py
+
+[Install]
+WantedBy=multi-user.target

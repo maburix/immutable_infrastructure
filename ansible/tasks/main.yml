@@ -1,0 +1,57 @@
+---
+# - name: apt update
+#   apt:
+#     update_cache: true
+#     upgrade: true
+#   become: true
+
+- name: install pyenv
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - python3-pip
+      - curl
+      - rsync
+      - sudo
+      - python-setuptools
+    update_cache: true
+  become: true
+
+# - name: Copy artifacts
+#   synchronize:
+#     src: "{{ base_path }}/src/"
+#     dest: /opt/hello mode=0644
+#   become: true
+- name: Copy data
+  copy:
+    src: "{{ base_path }}/src/"
+    dest: /opt/hello/
+    directory_mode: true
+  
+-  file:
+    path: /opt/hello/app.py
+    mode: 0755
+
+- name: install flask
+  pip:
+    executable: pip3
+    requirements: /opt/hello/requirements.txt
+  become: true
+
+- name: Creates directory
+  file: path=/opt/hello state=directory
+  become: true
+
+- name: Hello | Create Unit file
+  template: src=hello.service.j2 dest=/etc/systemd/system/hello.service mode=0644
+  become: true
+
+- name: restart service Hello
+  systemd:
+    state: started
+    daemon_reload: true
+    name: hello
+    enabled: true
+    masked: false
+  become: true
