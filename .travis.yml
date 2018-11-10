@@ -24,4 +24,6 @@ script:
   - make packer-build
 
 deploy:
-  - make create-hello-infra
+  provider: script
+  script: make create-hello-infra
+  branch: master
