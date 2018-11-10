@@ -25,5 +25,6 @@ script:
 
 deploy:
   provider: script
-  script: make create-hello-infra
+  script: 
+    - make create-hello-infra
   branch: master
