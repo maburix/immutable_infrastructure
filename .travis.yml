@@ -15,8 +15,7 @@ before_install:
   - sudo unzip terraform_0.11.10_linux_amd64.zip
   - sudo cp terraform /usr/local/bin
   - cd ..
-
-
+  
 install:
   - pip3 install ansible
 

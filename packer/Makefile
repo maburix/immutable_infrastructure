@@ -1,6 +1,5 @@
 create-packer-infra:
-	terraform init . 
-	#terraform workspace select packer
+	terraform init .
 	terraform apply --auto-approve 
 	
 destroy-packer-infra:
