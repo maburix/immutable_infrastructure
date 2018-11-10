@@ -1,10 +1,8 @@
 all: create-packer-infra packer-build create-hello-infra
 
-packer-build:
-	$(MAKE) -C packer create-packer-infra
+packer-build: create-packer-infra
 	AWS_SUBNET_ID=$(shell cd packer && terraform output subnet-id) && echo $$AWS_SUBNET_ID && \
 	packer build -var aws_subnet_id=$$AWS_SUBNET_ID packer/hello.json
-
 
 create-packer-infra:
 	$(MAKE) -C packer create-packer-infra
