@@ -20,6 +20,8 @@ before_install:
 install:
   - pip3 install ansible
 
-
 script:
-  - make all
+  - make packer-build
+
+deploy:
+  - make create-hello-infra
