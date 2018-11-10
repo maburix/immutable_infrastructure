@@ -25,7 +25,7 @@ def main():
         <meta http-equiv=\"refresh\" content="2">
        </head>
         <body>
-        <h1 style='color:red'> """ + \
+        <h1 style='color:blue'> """ + \
         hostname + "</h1>" + \
         '<p>' + str(time_now) + '</p>' + \
         """</body> \
