@@ -4,7 +4,6 @@ data "aws_ami" "packer_image" {
 
   filter {
     name   = "owner-id"
-    #values = [ "${ var.owner_id }" ]
     values = [ "594951516078" ]
   }
 
@@ -65,6 +64,7 @@ resource "aws_autoscaling_group" "asg_hello_world" {
 }
 
 resource "aws_launch_configuration" "lc_hello_world" {
+    
     lifecycle { create_before_destroy = true }
 
     image_id        = "${data.aws_ami.packer_image.id}"
@@ -88,4 +88,3 @@ resource "aws_route53_record" "maburix-demo" {
   ttl     = "30"
   records = ["${aws_elb.hello_world.dns_name}"]
 }
-

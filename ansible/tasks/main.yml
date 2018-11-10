@@ -18,11 +18,6 @@
     update_cache: true
   become: true
 
-# - name: Copy artifacts
-#   synchronize:
-#     src: "{{ base_path }}/src/"
-#     dest: /opt/hello mode=0644
-#   become: true
 - name: Copy data
   copy:
     src: "{{ base_path }}/src/"

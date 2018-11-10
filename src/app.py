@@ -19,13 +19,13 @@ def lock_file_name():
 @app.route("/")
 def main():
     time_now = datetime.now()
-    hostname = socket.gethostname() + '.foo.com'
+    hostname = socket.gethostname() + '.maburix.net'
     response_body = """<html> 
         <head> 
         <meta http-equiv=\"refresh\" content="2">
        </head>
         <body>
-        <h1 style='color:blue'> """ + \
+        <h1 style='color:red'> """ + \
         hostname + "</h1>" + \
         '<p>' + str(time_now) + '</p>' + \
         """</body> \
