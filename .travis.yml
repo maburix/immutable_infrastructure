@@ -31,12 +31,3 @@ jobs:
         script: 
           - make create-hello-infra
         branch: master
-# script:
-#   - make ansible-test
-#   - make packer-build
-
-# deploy:
-#   provider: script
-#   script: 
-#     - make create-hello-infra
-#   branch: master
