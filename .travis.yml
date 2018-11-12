@@ -27,6 +27,9 @@ jobs:
     - stage: "Tests"
       name: "Ansible Test"
       script: make ansible-test
+    - stage: "Build"
+      name: "Build Packer Image"
+      script: make packer-build
 
 deploy:
   provider: script
