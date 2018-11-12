@@ -18,6 +18,7 @@ before_install:
   - cd ..
   
 install:
+  - pip3 install --upgrade pip setuptools wheel
   - pip3 install molecule ansible docker
 
 jobs:
