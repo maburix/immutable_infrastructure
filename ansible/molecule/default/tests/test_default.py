@@ -5,10 +5,11 @@ import testinfra.utils.ansible_runner
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
-def test_hello_running_and_enabled(host):
-    hello = host.service('hello')
 
-    assert hello.is_enabled
+def test_hello_running_and_enabled(host):
+    service = host.service('hello')
+    
+    assert  service.is_running
 
 
 def test_flask_listening_http(host):

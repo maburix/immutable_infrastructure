@@ -1,20 +1,23 @@
 all: create-packer-infra packer-build create-hello-infra
 
-packer-build: create-packer-infra
-	AWS_SUBNET_ID=$(shell cd packer && terraform output subnet-id) && echo $$AWS_SUBNET_ID && \
-	packer build -var aws_subnet_id=$$AWS_SUBNET_ID packer/hello.json
+packer-build:
+	#$(MAKE) -C packer packer-build
+	packer build packer/hello.json
 
 create-packer-infra:
-	$(MAKE) -C packer create-packer-infra
+	$(MAKE) -C terraform/tf_dev create-packer-infra
 
 
 destroy-packer-infra:
-	$(MAKE)  -C packer destroy-packer-infra
+	$(MAKE)  -C terraform/tf_dev destroy-packer-infra
+
 
 create-hello-infra:
-	$(MAKE)  -C tf_app create-hello-infra
-
+	$(MAKE)  -C terraform/tf_prod create-hello-infra
 
 
 destroy-hello-infra:
-	$(MAKE) -C tf_app destroy-hello-infra
+	$(MAKE) -C terraform/tf_prod destroy-hello-infra
+
+destroy-all: destroy-hello-infra destroy-packer-infra
+

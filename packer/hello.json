@@ -2,20 +2,29 @@
     "variables": {
       "packer_build_number": "debian-9",
       "region": "us-east-1",
-      "version": "{{timestamp}}",
-      "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}"
+      "version": "{{timestamp}}"
     },
     "description": "Hello World Python",
     "builders": [
+
+
       {
+
         "ami_name": "hello-world-{{user `packer_build_number`}}-{{user `version`}}",
         "instance_type": "t2.micro",
-        "subnet_id": "{{ user `aws_subnet_id` }}",
+        
+        "subnet_filter": {
+          "filters": {
+            "tag:Name": "develop"
+          },
+          "most_free": true,
+          "random": false
+        },
         "associate_public_ip_address": true,
         "region": "{{user `region`}}",
         "run_tags": {
           "Name": "hello-world",
-          "Environment": "production",
+          "Environment": "develop",
           "Service": "hello",
           "Owner": "ops"
         },

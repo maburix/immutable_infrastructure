@@ -19,8 +19,14 @@ before_install:
 install:
   - pip3 install ansible
 
-script:
-  - make packer-build
+jobs:
+  - stage: test
+    script: 
+      - cd ansible && molecule test
+
+  - stage: build
+    script: 
+      - cd $HOME && make packer-build
 
 deploy:
   provider: script
