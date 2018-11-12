@@ -27,8 +27,9 @@ jobs:
     - stage: "Tests"
       name: "Ansible Test"
       script: make ansible-test
-    - deploy:
-        provider: script
-        script: 
-          - make create-hello-infra
-        branch: master
+
+deploy:
+  provider: script
+  script: 
+    - make create-hello-infra
+  branch: master
