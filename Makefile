@@ -21,5 +21,5 @@ destroy-hello-infra:
 
 destroy-all: destroy-hello-infra destroy-packer-infra
 
-test-ansible:
+ansible-test:
 	cd ansible && molecule test
