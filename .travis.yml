@@ -1,5 +1,6 @@
 ---
 sudo: required
+services: docker
 language: python
 python: 
   - "3.6"
@@ -17,16 +18,16 @@ before_install:
   - cd ..
   
 install:
-  - pip3 install ansible
+  - pip3 install molecule ansible docker
 
 jobs:
   - stage: test
     script: 
-      - cd ansible && molecule test
+      - make ansible-test
 
   - stage: build
     script: 
-      - cd $HOME && make packer-build
+      - make packer-build
 
 deploy:
   provider: script
