@@ -20,12 +20,22 @@ before_install:
 install:
   - pip3 install molecule ansible docker
 
-script:
-  - make ansible-test
-  - make packer-build
+jobs:
+  include:
+    - stage: "Tests"
+      name: "Ansible Test"
+      script: make ansible-test
+    - deploy:
+        provider: script
+        script: 
+          - make create-hello-infra
+        branch: master
+# script:
+#   - make ansible-test
+#   - make packer-build
 
-deploy:
-  provider: script
-  script: 
-    - make create-hello-infra
-  branch: master
+# deploy:
+#   provider: script
+#   script: 
+#     - make create-hello-infra
+#   branch: master
