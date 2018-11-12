@@ -26,10 +26,25 @@ resource "aws_subnet" "develop" {
     ipv6_cidr_block                 = "${cidrsubnet(aws_vpc.develop.ipv6_cidr_block, 8, 1)}"
     assign_ipv6_address_on_creation = true
     
+    tags {
+    Name          = "${ var.environment }"
+    Environment   = "${ var.environment }"
+    Owner         = "${ var.owner }"
+    Service       = "${ var.service }"
+    Provisioner   = "${ var.provisioner }"
+  }
+
 }
 
 resource "aws_internet_gateway" "develop" {
     vpc_id = "${aws_vpc.develop.id}"
+      tags {
+    Name          = "${ var.environment }"
+    Environment   = "${ var.environment }"
+    Owner         = "${ var.owner }"
+    Service       = "${ var.service }"
+    Provisioner   = "${ var.provisioner }"
+  }
 }
 
 resource "aws_default_route_table" "develop" {
@@ -44,6 +59,13 @@ resource "aws_default_route_table" "develop" {
         ipv6_cidr_block = "::/0"
         gateway_id      = "${aws_internet_gateway.develop.id}"
     }
+      tags {
+    Name          = "${ var.environment }"
+    Environment   = "${ var.environment }"
+    Owner         = "${ var.owner }"
+    Service       = "${ var.service }"
+    Provisioner   = "${ var.provisioner }"
+  }
 }
 
 resource "aws_route_table_association" "develop" {
@@ -81,4 +103,11 @@ resource "aws_security_group" "develop" {
       protocol         = "-1"
       ipv6_cidr_blocks = ["::/0"]
     }
+      tags {
+    Name          = "${ var.environment }"
+    Environment   = "${ var.environment }"
+    Owner         = "${ var.owner }"
+    Service       = "${ var.service }"
+    Provisioner   = "${ var.provisioner }"
+  }
 }

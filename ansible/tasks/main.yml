@@ -23,8 +23,9 @@
     src: "{{ base_path }}/src/"
     dest: /opt/hello/
     directory_mode: true
-  
--  file:
+
+- name: Become exacutable
+  file:
     path: /opt/hello/app.py
     mode: 0755
 

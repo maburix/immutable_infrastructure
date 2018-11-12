@@ -1,8 +1,10 @@
 ---
 sudo: required
+services: docker
 language: python
 python: 
   - "3.6"
+cache: pip
 
 before_install:
   - sudo apt-get update && sudo apt-get install -y curl
@@ -15,11 +17,19 @@ before_install:
   - sudo unzip terraform_0.11.10_linux_amd64.zip
   - sudo cp terraform /usr/local/bin
   - cd ..
-
-
+  
 install:
-  - pip3 install ansible
+  - pip3 install --upgrade pip setuptools wheel
+  - pip3 install molecule ansible docker
 
+jobs:
+  include:
+    - stage: "Tests"
+      name: "Ansible Test"
+      script: make ansible-test
 
-script:
-  - make all
+deploy:
+  provider: script
+  script: 
+    - make create-hello-infra
+  branch: master
